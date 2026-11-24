@@ -1,0 +1,65 @@
+name: lint style
+
+# Mathlib's text-based style linters (`lake exe lint-style`), which scripts/lint-style.sh runs on
+# every Lean file under src/. They report characters outside Mathlib's Unicode allowlist, a space
+# before `;`, "Adaptation note" comments, Windows line endings, and module names that are not
+# UpperCamelCase, not ASCII, or not allowed as file names on Windows. Text errors that were there
+# before are listed in scripts/nolints-style.txt; module names have no such list.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - src/**
+      - scripts/lint-style.sh
+      - scripts/nolints-style.txt
+      - lakefile.toml
+      - lake-manifest.json
+      - lean-toolchain
+      - .github/workflows/lint-style.yml
+  pull_request:
+    paths:
+      - src/**
+      - scripts/lint-style.sh
+      - scripts/nolints-style.txt
+      - lakefile.toml
+      - lake-manifest.json
+      - lean-toolchain
+      - .github/workflows/lint-style.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lint-style-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-style:
+    name: Mathlib's text-based style linters
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      MATHLIB_CACHE_GET_URL: https://cache.mathlib.org/mathlib4   # as in checks.yml
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -o "$RUNNER_TEMP/elan-init.sh"
+          sh "$RUNNER_TEMP/elan-init.sh" -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      # Of Mathlib's cache, only what Mathlib's scripts/lint-style.lean imports. Its other import,
+      # Cli.Basic, is not in the cache and builds in seconds.
+      - name: Build lint-style
+        run: |
+          lake exe mathlib/cache get Mathlib.Tactic.Linter.TextBased Batteries.Data.String.Basic \
+            ImportGraph.Imports.FromSource
+          lake build mathlib/lint-style
+      - name: Lint every Lean file under src/
+        run: |
+          scripts/lint-style.sh || {
+            status=$?
+            echo "Src/ in these errors is src/. scripts/lint-style.sh --fix fixes some of them."
+            exit "$status"
+          }
