@@ -310,6 +310,9 @@ variable {l : ℕ} [Fact l.Prime] {K : IntermediateField ℚ_[l] (PadicAlgCl l)}
 
 namespace Mul
 
+section
+attribute [local irreducible] CH.Mor.pull CH.Pairing.cup
+
 theorem rS_sh {r r' j : ℕ} (k : ℕ) (h : r + k = r') (n : ℕ) (x : Y.Fam M r j) :
     (L.rS M r' n).pull j (CB.shS k h x n) = (shm (L.QA M) L.t_mem ((l : L.A) ^ n) k h).pull j ((L.rS M r n).pull j (x n)) :=
   redSub_sh M.p m {⊤} (L.d n) (Y.c n) L.lam (L.d_lam n) (Y.ht n) L.t_mem k h j (x n)
@@ -321,6 +324,8 @@ theorem rS_cup {r r' s i j : ℕ} (h : r + r' = s) (n : ℕ) (x : Y.Fam M r i) (
 
 theorem rS_one (n : ℕ) : (L.rS M 0 n).pull 0 (Y.oneS M n) = redG' (L.QA M) ((l : L.A) ^ n) 0 0 (oneG (L.QA M)) :=
   redSub_one M.p m {⊤} (L.d n) (Y.c n) L.lam (L.d_lam n)
+
+end
 
 theorem b_sh {r r' j : ℕ} (k : ℕ) (h : r + k = r') (z : HG (L.QA M) r j) :
     L.bG M r' j (shG (L.QA M) L.t_mem k h j z) = shG (L.QB M) L.tB_mem k h j (L.bG M r j z) :=
@@ -334,6 +339,8 @@ theorem b_one : L.bG M 0 0 (oneG (L.QA M)) = L.μ M 0 0 0 (oneH M.q) := by
   refine congrArg Submodule.Quotient.mk (Subtype.ext (funext fun s => Subtype.ext (congrArg (Ideal.Quotient.mk _) ?_)))
   change (1 : (s.obj (Fin.last 0)).obj.B) = (s.obj (Fin.last 0)).obj.i (L.tB ^ (0 - 0)) * 1
   rw [Nat.sub_self, pow_zero, map_one, mul_one]
+
+attribute [local irreducible] CH.Mor.pull CH.Pairing.cup
 
 theorem lifts_sh {r r' j : ℕ} (k : ℕ) (h : r + k = r') (x : Y.Fam M r j) (e : ℕ) (z : HG (L.QA M) r j) (hz : L.Lifts e z x) :
     L.Lifts e (shG (L.QA M) L.t_mem k h j z) (CB.shS k h x) := fun n =>

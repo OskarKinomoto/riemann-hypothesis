@@ -428,6 +428,8 @@ theorem toY_gal {M : Model l K} (σ : K.fixingSubgroup) {r j : ℕ} (x : Fam M r
     toY ht hs (galS σ x) n = (pdOm (c := (cb K ht hs).c n) (c' := (cb K ht hs).c n) (galY ht hs M σ n)
       (ACris.galCris (IntermediateField.fixingSubgroupEquiv K σ)) (galBase_cris _ n) r).pull j (toY ht hs x n) := rfl
 
+attribute [local irreducible] gam CH.Mor.pull pdOm galY
+
 include H in
 theorem half_galois_of_compatible (hg : ∀ (m : ℕ) (σ : K.fixingSubgroup), Nonempty (LHom (S m) (S m)
     (ACris.galCris (IntermediateField.fixingSubgroupEquiv K σ)) (galBase (IntermediateField.fixingSubgroupEquiv K σ))

@@ -251,6 +251,8 @@ theorem exists_second_partial_law : ∀ (E : Type) [Field E] [NumberField E] [Is
       apply ofMul_eq
       simp only [ofMul_mul, ofMul_inv, _root_.mul_one]
       erw [ha2]
+      generalize jptG t x0 d x m (0 : Fin 3) = p0, jptG t x0 d x m (1 : Fin 3) = p1,
+        jptG t x0 d x m (2 : Fin 3) = p2
       abel!)
     (fun m y J hJ => (val_pull hJ _ _ _).trans ((congrArg (fun r => val t.cub.t r y J) (triplePt_trunc_second hch m 1 2 0)).trans
       (val_pull hJ _ _ _).symm))

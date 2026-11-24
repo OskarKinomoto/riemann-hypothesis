@@ -106,6 +106,8 @@ theorem pd_om_sh {b b' : Base} {L : b.Fun} {L' : b'.Fun} {σ : b.R →+* b'.R} (
   exact congrArg (fun u => (s.obj (Fin.last j)).i u *
     (show (s.obj (Fin.last j)).B from (show (B.pdS L c r).S _ from z.1 (s ⋙ m.functor)).1)) (h (t ^ k))
 
+attribute [local irreducible] CH.Mor.pull B.pdS pdOm pdSh
+
 variable {l : ℕ} [Fact l.Prime] {K : IntermediateField ℚ_[l] (PadicAlgCl l)}
 
 section F
