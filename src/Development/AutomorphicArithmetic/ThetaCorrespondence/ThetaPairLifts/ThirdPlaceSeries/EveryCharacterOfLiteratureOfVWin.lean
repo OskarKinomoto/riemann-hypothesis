@@ -679,8 +679,8 @@ open NumberField IsDedekindDomain Neutral.B1 Formalism.ConjugateSelfDual Recipro
 open GlobalTheory.HeckeGal GlobalTheory.Pst GlobalTheory.TripleGal GlobalTheory.LocLanglands GlobalTheory.WeilDeligne GlobalTheory.SmGL GlobalTheory.PRep GlobalTheory.SplitWeil GlobalTheory.LocGL
 attribute [local instance] GlobalTheory.LocalData.complRel GlobalTheory.LocalData.isLocalField
 namespace GlobalTheory.Published.CharCrysModel
-theorem of_hypotheses_m_alt (hD : HeckeLAdicCharacterDeRham) (hB : DeRhamPotSemistable) (hW : AlgebraicCharacterWD)
-    (_hL : _root_.UpperTheory.Zero.LLC.RecTExists) : HeckeLAdicCharacterCrystalline := of_three hD hB hW
+theorem of_hypotheses_m_alt (hD : HeckeLAdicCharacterDeRham) (hB : DeRhamPotSemistable) (hW : AlgebraicCharacterWD) :
+    HeckeLAdicCharacterCrystalline := of_three hD hB hW
 end GlobalTheory.Published.CharCrysModel
 end
 end
@@ -1146,7 +1146,7 @@ theorem UpperTheory.LiteratureTheorems.hasse_norm_st_of_literature (O : _root_.U
 theorem UpperTheory.LiteratureTheorems.hecke_l_adic_character_of_literature (O : _root_.UpperTheory.LiteratureTheorems.OpenLiteratureStatements) : GlobalTheory.Published.HeckeLAdicCharacter :=
   PositivityTheory.Stage1.PM.heckeLAdicCharacter
 theorem UpperTheory.LiteratureTheorems.hecke_l_adic_character_crystalline_of_literature (O : _root_.UpperTheory.LiteratureTheorems.OpenLiteratureStatements) : GlobalTheory.Published.HeckeLAdicCharacterCrystalline :=
-  _root_.GlobalTheory.Published.CharCrysModel.of_hypotheses_m_alt (_root_.UpperTheory.LiteratureTheorems.hecke_l_adic_character_de_rham_of_literature O) (_root_.UpperTheory.LiteratureTheorems.de_rham_pot_semistable_of_literature O) (_root_.UpperTheory.LiteratureTheorems.algebraic_character_wd_of_literature O) (_root_.UpperTheory.LiteratureTheorems.local_langlands_gl_recT_exists_of_literature O)
+  _root_.GlobalTheory.Published.CharCrysModel.of_hypotheses_m_alt (_root_.UpperTheory.LiteratureTheorems.hecke_l_adic_character_de_rham_of_literature O) (_root_.UpperTheory.LiteratureTheorems.de_rham_pot_semistable_of_literature O) (_root_.UpperTheory.LiteratureTheorems.algebraic_character_wd_of_literature O)
 theorem UpperTheory.LiteratureTheorems.hecke_l_adic_character_above_of_literature (O : _root_.UpperTheory.LiteratureTheorems.OpenLiteratureStatements) : GlobalTheory.Published.HeckeLAdicCharacterAbove :=
   GlobalTheory.HeckeAboveBridge.heckeLAdicCharacterAbove_of_potSemistable (_root_.UpperTheory.LiteratureTheorems.hecke_l_adic_character_de_rham_of_literature O) (_root_.UpperTheory.LiteratureTheorems.hecke_l_adic_character_crystalline_of_literature O) (_root_.UpperTheory.LiteratureTheorems.de_rham_pot_semistable_of_literature O)
 theorem UpperTheory.LiteratureTheorems.hecke_l_adic_parameter_above_of_literature (O : _root_.UpperTheory.LiteratureTheorems.OpenLiteratureStatements) : _root_.GlobalTheory.Published.HeckeLAdicParameterAboveAlt :=
